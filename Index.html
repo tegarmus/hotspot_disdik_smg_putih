@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal WiFi SDN Kota Semarang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .login-form {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        
+        .logo-container {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .profile-photo {
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #3b82f6, #1e40af) border-box;
+            border: 2px solid transparent;
+        }
+        
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.0),
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.0)
+            );
+            transform: rotate(30deg);
+            transition: all 0.6s;
+        }
+        
+        .shine-effect:hover::before {
+            animation: shine 1.5s forwards;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(30deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(30deg);
+            }
+        }
+        
+        /* Particle background animation */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(30, 64, 175, 0.05));
+            animation: floatParticle 15s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Text animation */
+        .text-shimmer {
+            background: linear-gradient(90deg, #1e40af, #3b82f6, #1e40af);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        
+        /* Button hover effects */
+        .btn-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-hover:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.3), 0 10px 10px -5px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Form input animation */
+        .input-focus {
+            transition: all 0.3s ease;
+        }
+        
+        .input-focus:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Card entrance animation */
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .animate-slide-in {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+        
+        /* Floating icons animation */
+        .floating-icon {
+            animation: floatIcon 4s ease-in-out infinite;
+        }
+        
+        @keyframes floatIcon {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+            66% {
+                transform: translateY(5px) rotate(-5deg);
+            }
+        }
+        
+        /* Pulse ring animation */
+        .pulse-ring {
+            animation: pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulseRing {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.7;
+            }
+        }
+
+        /* Wave animation */
+        .wave {
+            animation: wave 8s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center py-8 px-4">
+    <!-- Particle Background -->
+    <div id="particles" class="particles"></div>
+    
+    <!-- Animated Waves Background -->
+    <div class="fixed inset-0 z-0 opacity-5">
+        <div class="absolute -top-40 -left-40 w-80 h-80 bg-blue-300 rounded-full wave opacity-20"></div>
+        <div class="absolute top-20 -right-20 w-60 h-60 bg-indigo-300 rounded-full wave opacity-15" style="animation-delay: -2s;"></div>
+        <div class="absolute bottom-10 left-20 w-40 h-40 bg-blue-400 rounded-full wave opacity-10" style="animation-delay: -4s;"></div>
+        <div class="absolute -bottom-20 -right-10 w-70 h-70 bg-indigo-400 rounded-full wave opacity-15" style="animation-delay: -6s;"></div>
+    </div>
+    
+    <div class="relative w-full max-w-6xl mx-auto z-10">
+        <!-- Header -->
+        <div class="text-center mb-12 animate-slide-in" style="animation-delay: 0.1s;">
+            <div class="flex justify-center mb-6">
+                <div class="logo-container rounded-2xl flex items-center justify-center text-white shadow-lg floating-animation pulse-ring">
+                    <img src="img/logo_all_putih.png" alt="" width="80%">
+                    <div class="absolute -bottom-2 w-16 h-2 bg-blue-600 rounded-full opacity-60"></div>
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold gradient-text mb-4 text-shimmer">
+                Portal WiFi SDN Kota Semarang
+            </h1>
+            <p class="text-xl text-blue-600 font-semibold italic bg-blue-50 py-2 px-6 rounded-full inline-block border border-blue-200">
+                "Pendidikan Bermutu untuk Semua, Murid Berdaya, Indonesia Jaya!"
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <!-- Foto Kepala Dinas -->
+            <div class="card-hover bg-white rounded-2xl p-6 shadow-lg gradient-border animate-slide-in" style="animation-delay: 0.2s;">
+                <h2 class="text-2xl font-bold text-blue-800 mb-6 text-center">
+                    <i class="fas fa-user-tie mr-2 floating-icon"></i>Kepala Dinas Pendidikan
+                </h2>
+                <div class="flex justify-center mb-6">
+                    <div class="profile-photo w-64 h-80 overflow-hidden glass-effect shine-effect">
+                        <img 
+                            src="img/KADISDIK.png" 
+                            alt="Foto Kepala Dinas Pendidikan Kota Semarang setengah badan dengan background transparan, mengenakan pakaian profesional formal" 
+                            class="w-full h-full object-cover opacity-95 transition-transform duration-300 hover:scale-105"
+                            onerror="this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/23d09db3-61aa-4b3e-bd88-6230eade76d4.png'"
+                        />
+                    </div>
+                </div>
+                <div class="text-center bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100">
+                    <h3 class="text-xl font-semibold text-blue-700">Dr. Bambang Pramusinto, S.H., S.IP., M.Si.</h3>
+                    <p class="text-blue-600 font-medium">Kepala Dinas Pendidikan Kota Semarang</p>
+                </div>
+            </div>
+
+            <!-- Visi dan Misi -->
+            <div class="card-hover bg-white rounded-2xl p-6 shadow-lg gradient-border animate-slide-in" style="animation-delay: 0.3s;">
+                <h2 class="text-2xl font-bold text-blue-800 mb-6 text-center">
+                    <i class="fas fa-bullseye mr-2 floating-icon"></i>Visi & Misi Dinas Pendidikan
+                </h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3 flex items-center">
+                        <i class="fas fa-eye mr-3 text-blue-500 text-lg floating-icon"></i>Visi
+                    </h3>
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-xl border-l-4 border-blue-500 transition-all duration-300 hover:shadow-md">
+                        <p class="text-gray-700 leading-relaxed italic">
+                            "Terwujudnya penyelenggaraan pendidikan yang Bermutu, Berkeadilan dan Berkarakter."
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3 flex items-center">
+                        <i class="fas fa-tasks mr-3 text-blue-500 text-lg floating-icon"></i>Misi
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start bg-blue-50 p-3 rounded-lg border border-blue-100 transition-all duration-300 hover:transform hover:translate-x-2">
+                            <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 pulse-ring">
+                                <i class="fas fa-check text-blue-600 text-sm"></i>
+                            </div>
+                            <span class="text-gray-700">1. Meningkatkan tata kelola administrasi, kepegawaian, perencanaan dan evaluasi serta keuangan yang efektif dan efisien dalam pengelolaan kebijakan pendidikan berbasis profesionalisme dan pelayanan publik</span>
+                        </li>
+                        <li class="flex items-start bg-indigo-50 p-3 rounded-lg border border-indigo-100 transition-all duration-300 hover:transform hover:translate-x-2">
+                            <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center mr-3 pulse-ring">
+                                <i class="fas fa-check text-indigo-600 text-sm"></i>
+                            </div>
+                            <span class="text-gray-700">2. Mewujudkan ekosistem PAUD, Pendidikan Dasar, Pendidikan Menengah dan Pendidikan Non Formal yang kreatif, inovatif dan berkarakter</span>
+                        </li>
+                        <li class="flex items-start bg-purple-50 p-3 rounded-lg border border-purple-100 transition-all duration-300 hover:transform hover:translate-x-2">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3 pulse-ring">
+                                <i class="fas fa-check text-purple-600 text-sm"></i>
+                            </div>
+                            <span class="text-gray-700">3. Meningkatkan kualitas PAUD, Pendidikan Dasar, Pendidikan Menengah dan Pendidikan Non Formal termasuk bagi siswa berkebutuhan khusus secara memadai</span>
+                        </li>
+                        <li class="flex items-start bg-blue-50 p-3 rounded-lg border border-blue-100 transition-all duration-300 hover:transform hover:translate-x-2">
+                            <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 pulse-ring">
+                                <i class="fas fa-check text-blue-600 text-sm"></i>
+                            </div>
+                            <span class="text-gray-700">4. Meningkatkan kualitas Pendidik dan Tenaga Kependidikan pada tingkat PAUD, Pendidikan Dasar, Pendidikan Menengah dan Pendidikan Non Formal yang kreatif, inovatif dan berkarakter</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Login -->
+        <div class="card-hover login-form rounded-2xl p-8 shadow-xl gradient-border animate-slide-in" style="animation-delay: 0.4s;">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-8">
+                <i class="fas fa-wifi mr-3 text-blue-600 floating-icon"></i>Login WiFi Pendidikan
+            </h2>
+            
+            <form id="loginForm" class="space-y-6">
+                <div class="relative">
+                    <label class="block text-blue-700 font-semibold mb-3">
+                        <i class="fas fa-user-circle mr-2 floating-icon"></i>Username
+                    </label>
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            placeholder="Masukkan username Anda" 
+                            class="w-full px-5 py-4 border-2 border-blue-100 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-transparent transition-all duration-300 bg-white input-focus"
+                            required
+                        >
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <i class="fas fa-user text-blue-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <label class="block text-blue-700 font-semibold mb-3">
+                        <i class="fas fa-key mr-2 floating-icon"></i>Password
+                    </label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            placeholder="Masukkan password Anda" 
+                            class="w-full px-5 py-4 border-2 border-blue-100 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-transparent transition-all duration-300 bg-white input-focus"
+                            required
+                        >
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <i class="fas fa-lock text-blue-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" id="remember" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                    <label for="remember" class="ml-2 text-sm text-blue-600">Ingat saya</label>
+                    <a href="#" class="ml-auto text-sm text-blue-600 hover:text-blue-800 transition-colors">Lupa password?</a>
+                </div>
+                
+                <button 
+                    type="submit" 
+                    class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 pulse-animation flex items-center justify-center shadow-lg btn-hover"
+                >
+                    <i class="fas fa-sign-in-alt mr-3"></i>Masuk ke Jaringan WiFi
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-blue-600 text-sm bg-blue-50 py-2 px-4 rounded-lg inline-block">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Untuk akses WiFi, gunakan akun yang telah diberikan oleh sekolah
+                </p>
+            </div>
+
+            <!-- Additional Help Section -->
+            <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <h3 class="text-lg font-semibold text-blue-800 mb-3 flex items-center">
+                    <i class="fas fa-question-circle mr-2 text-blue-600"></i>Butuh Bantuan?
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-center p-3 bg-white rounded-lg border border-blue-100">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-phone text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-blue-700 font-medium"><a href="https://wa.me/6281226139781?text=Halo%20Pak,%20Maaf%20saya%20tidak%20bisa%20bergabung%20ke%20jaringan" target="_blank"></a>Hubungi Kami</p>
+                            <p class="text-xs text-blue-600"><a href="https://wa.me/6281226139781?text=Halo%20Pak,%20Maaf%20saya%20tidak%20bisa%20bergabung%20ke%20jaringan" target="_blank">0812-2613-9781</a></p></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-3 bg-white rounded-lg border border-blue-100">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-envelope text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-blue-700 font-medium">Email Support</p>
+                            <p class="text-xs text-blue-600">wifi.support@semdik.semarang.go.id</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-16 animate-slide-in" style="animation-delay: 0.5s;">
+            <div class="flex justify-center space-x-4 mb-6">
+                <div class="w-14 h-14 bg-gradient-to-r from-blue-100 to-blue-200 rounded-full flex items-center justify-center text-blue-600 hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-300 cursor-pointer shadow-md floating-icon">
+                    <i class="fab fa-facebook-f text-lg"></i>
+                </div>
+                <div class="w-14 h-14 bg-gradient-to-r from-indigo-100 to-purple-200 rounded-full flex items-center justify-center text-indigo-600 hover:from-indigo-600 hover:to-purple-600 hover:text-white transition-all duration-300 cursor-pointer shadow-md floating-icon">
+                    <i class="fab fa-instagram text-lg"></i>
+                </div>
+                <div class="w-14 h-14 bg-gradient-to-r from-blue-100 to-cyan-200 rounded-full flex items-center justify-center text-cyan-600 hover:from-cyan-600 hover:to-blue-600 hover:text-white transition-all duration-300 cursor-pointer shadow-md floating-icon">
+                    <i class="fab fa-twitter text-lg"></i>
+                </div>
+                <div class="w-14 h-14 bg-gradient-to-r from-red-100 to-red-200 rounded-full flex items-center justify-center text-red-600 hover:from-red-600 hover:to-red-700 hover:text-white transition-all duration-300 cursor-pointer shadow-md floating-icon">
+                    <i class="fab fa-youtube text-lg"><a href=""></a></i>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100">
+                <p class="text-blue-700 font-bold text-lg mb-2">
+                    <i class="fas fa-building mr-2"></i>Dinas Pendidikan Kota Semarang
+                </p>
+                <p class="text-blue-600 text-sm mb-1">
+                    <i class="fas fa-map-marker-alt mr-2"></i>Jl. Pemuda No. 148, Semarang Tengah, Kota Semarang
+                </p>
+                <p class="text-blue-500 text-sm">
+                    <i class="fas fa-phone mr-2"></i>(024) 351-2345
+                </p>
+            </div>
+            
+            <p class="text-blue-400 text-xs mt-4">
+                © 2024 Portal WiFi SDN Kota Semarang. Semua hak dilindungi.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Particle background animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random size and position
+                const size = Math.random() * 20 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Form submission handling
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = this.querySelector('input[type="text"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            const remember = this.querySelector('#remember').checked;
+            
+            // Simulasi proses login dengan animasi yang lebih smooth
+            const button = this.querySelector('button');
+            const originalText = button.innerHTML;
+            const originalGradient = button.style.backgroundImage;
+            
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sedang menghubungkan...';
+            button.disabled = true;
+            button.style.backgroundImage = 'linear-gradient(135deg, #94a3b8, #64748b)';
+            
+            // Animation untuk loading
+            const loadingInterval = setInterval(() => {
+                const dots = button.innerHTML.match(/\./g)?.length || 0;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sedang menghubungkan' + '.'.repeat((dots % 3) + 1);
+            }, 500);
+            
+            setTimeout(() => {
+                clearInterval(loadingInterval);
+                
+                if (username && password) {
+                    // Login berhasil
+                    button.innerHTML = '<i class="fas fa-check-circle"></i> Terhubung!';
+                    button.style.backgroundImage = 'linear-gradient(135deg, #10b981, #059669)';
+                    
+                    // Tambahkan efek sukses
+                    this.classList.add('animate-pulse');
+                    
+                    setTimeout(() => {
+                        const successMessage = `Login berhasil!${remember ? '\nInfo login akan diingat.' : ''}\nSelamat menggunakan WiFi SDN Kota Semarang.`;
+                        alert(successMessage);
+                        this.reset();
+                        button.innerHTML = originalText;
+                        button.disabled = false;
+                        button.style.backgroundImage = originalGradient;
+                        this.classList.remove('animate-pulse');
+                    }, 2000);
+                } else {
+                    // Login gagal
+                    button.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Gagal login';
+                    button.style.backgroundImage = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                    
+                    // Tambahkan efek error
+                    this.classList.add('animate-shake');
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.disabled = false;
+                        button.style.backgroundImage = originalGradient;
+                        this.classList.remove('animate-shake');
+                        alert('Username dan password harus diisi!');
+                    }, 2000);
+                }
+            }, 2500);
+        });
+        
+        // Menambahkan style untuk animasi shake
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+            .animate-shake {
+                animation: shake 0.5s ease-in-out;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize particles on load
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Add entrance animations to all elements
+            const animatedElements = document.querySelectorAll('.animate-slide-in');
+            animatedElements.forEach((el, index) => {
+                el.style.animationDelay = `${0.1 + index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
